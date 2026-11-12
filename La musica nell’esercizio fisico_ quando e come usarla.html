@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>La musica nell’esercizio fisico: quando e come usarla</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Figtree:wght@400;600&display=swap">
+<style>
+:root{
+  --bg:#f1f4fb;--ink:#0e1a3b;--mute:#566082;--line:#d3d9ea;--acc:#2547ff;--warm:#e8472f;--soft:#e4e9f8;
+  --zc:var(--acc);
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#0b1230;--ink:#eef1ff;--mute:#9aa4cc;--line:#26325f;--acc:#7d95ff;--warm:#ff8068;--soft:#17214a;color-scheme:dark}
+}
+:root[data-theme="dark"]{--bg:#0b1230;--ink:#eef1ff;--mute:#9aa4cc;--line:#26325f;--acc:#7d95ff;--warm:#ff8068;--soft:#17214a;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.6 Figtree,system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:44rem;margin:0 auto;padding:2.5rem 1.25rem 4rem}
+h1,h2,h3{font-family:"Bricolage Grotesque",Figtree,system-ui,sans-serif;line-height:1.08;margin:0}
+h1{font-weight:800;font-size:clamp(2.3rem,9vw,3.9rem);letter-spacing:-.02em}
+h2{font-weight:800;font-size:clamp(1.6rem,5.5vw,2.2rem);letter-spacing:-.01em;margin-bottom:.6rem}
+h3{font-weight:600;font-size:1.15rem}
+p{margin:.4rem 0 0;max-width:60ch}
+.sub{font-family:"Bricolage Grotesque",Figtree,sans-serif;font-weight:600;font-size:clamp(1.25rem,4.5vw,1.6rem);color:var(--acc);margin-top:.9rem}
+.credit{color:var(--mute);font-size:.95rem;margin-top:1.2rem}
+.credit span{display:block}
+section{margin-top:3.5rem}
+.muted{color:var(--mute)}
+
+/* hero: tempo */
+.tempo{margin-top:2.2rem;padding-top:1.4rem;border-top:2px solid var(--ink)}
+.eq{display:flex;align-items:flex-end;gap:3px;height:96px;margin:.8rem 0 1rem}
+.bar{flex:1;height:100%;background:var(--zc);border-radius:2px;transform-origin:bottom;transform:scaleY(.2);
+  animation:eq calc(var(--beat,.5s) / 2) ease-in-out infinite alternate;animation-delay:calc(var(--o) * var(--beat,.5s) * -1);
+  transition:background-color .3s}
+@keyframes eq{to{transform:scaleY(var(--h))}}
+.readout{display:flex;align-items:baseline;gap:.5rem;flex-wrap:wrap}
+.bpm{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:3.4rem;line-height:1;color:var(--zc);transition:color .3s;font-variant-numeric:tabular-nums}
+.zone{font-weight:600;min-height:3.3em;margin-top:.5rem}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:14px;border-radius:7px;margin:.8rem 0 .2rem;cursor:pointer;
+  background:linear-gradient(to right,var(--line) 0 33.3%,var(--soft) 33.3% 50%,var(--acc) 50% 66.7%,var(--soft) 66.7% 75%,var(--warm) 75% 100%)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:30px;height:30px;border-radius:50%;background:var(--ink);border:4px solid var(--bg)}
+input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--ink);border:4px solid var(--bg)}
+input:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--acc);outline-offset:3px}
+.scale{display:flex;justify-content:space-between;color:var(--mute);font-size:.85rem}
+
+/* grafico */
+.rows{margin-top:1.4rem;display:grid;gap:1.1rem}
+.row .top{display:flex;justify-content:space-between;gap:1rem;font-weight:600}
+.row .top span:last-child{font-variant-numeric:tabular-nums}
+.track{height:20px;margin-top:.3rem;border-radius:3px;background:
+  linear-gradient(to right,transparent calc(25% - 1px),var(--line) 0 calc(25% + 1px),transparent 0 calc(62.5% - 1px),var(--line) 0 calc(62.5% + 1px),transparent 0),var(--soft)}
+.fill{height:100%;border-radius:3px;background:var(--acc);width:var(--w)}
+.fill.ns{background:repeating-linear-gradient(45deg,var(--mute) 0 3px,transparent 3px 7px)}
+.row small{color:var(--mute)}
+.key{margin-top:1rem;color:var(--mute);font-size:.9rem}
+
+/* schede */
+.tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.2rem}
+.tabs button{font:600 1rem Figtree,sans-serif;color:var(--ink);background:transparent;border:2px solid var(--ink);border-radius:999px;padding:.55rem 1.05rem;cursor:pointer;min-height:44px}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg)}
+.panel{margin-top:1.4rem}
+.panel[hidden]{display:none}
+.panel .stat{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:2.4rem;line-height:1.05;color:var(--acc)}
+.panel ul{margin:1rem 0 0;padding-left:1.2rem;max-width:60ch}
+.panel li{margin:.55rem 0}
+.panel li::marker{color:var(--acc)}
+
+.final{border-top:2px solid var(--ink);padding-top:1.4rem}
+.final h2{margin-bottom:.8rem}
+footer{margin-top:3rem;color:var(--mute);font-size:.9rem}
+footer a{color:var(--acc)}
+@media (prefers-reduced-motion:reduce){.bar{animation:none;transform:scaleY(var(--h))}}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>I benefici della musica durante l’esercizio fisico</h1>
+    <p class="sub">Quando e come utilizzarla</p>
+    <p class="credit">
+      <span>Tesi di Joseph Lalla, A.A. 2025/2026</span>
+      <span>Relatore: Prof. Alessandro Arcovito</span>
+      <span>Università Cattolica del Sacro Cuore, Milano</span>
+    </p>
+
+    <div class="tempo">
+      <h2>Prova il tempo</h2>
+      <p class="muted">Muovi il cursore: a che velocità la musica sostiene davvero l’allenamento?</p>
+      <div class="eq" id="eq" aria-hidden="true"></div>
+      <div class="readout"><span class="bpm" id="bpm">128</span><span class="muted">BPM</span></div>
+      <input type="range" id="slider" min="60" max="180" value="128" aria-label="Tempo in battiti al minuto" aria-describedby="zone">
+      <div class="scale" aria-hidden="true"><span>60</span><span>120</span><span>180</span></div>
+      <p class="zone" id="zone" aria-live="polite"></p>
+    </div>
+  </header>
+
+  <section>
+    <h2>Quanto aiuta, davvero?</h2>
+    <p>La meta-analisi principale (Terry et al., 2020) mette insieme 139 studi e 3.599 partecipanti. La musica incide più sulla mente che sul corpo.</p>
+    <div class="rows">
+      <div class="row"><div class="top"><span>Umore positivo</span><span>g = 0,48</span></div><div class="track"><div class="fill" style="--w:60%"></div></div><small>effetto medio</small></div>
+      <div class="row"><div class="top"><span>Prestazione fisica</span><span>g = 0,31</span></div><div class="track"><div class="fill" style="--w:38.75%"></div></div><small>effetto piccolo</small></div>
+      <div class="row"><div class="top"><span>Sforzo percepito</span><span>g = 0,22</span></div><div class="track"><div class="fill" style="--w:27.5%"></div></div><small>effetto piccolo: la fatica si sente meno</small></div>
+      <div class="row"><div class="top"><span>Consumo di ossigeno</span><span>g = 0,15</span></div><div class="track"><div class="fill" style="--w:18.75%"></div></div><small>effetto molto piccolo</small></div>
+      <div class="row"><div class="top"><span>Frequenza cardiaca</span><span>g = 0,07</span></div><div class="track"><div class="fill ns" style="--w:8.75%"></div></div><small>non significativo</small></div>
+    </div>
+    <p class="key">Le linee verticali segnano le soglie di Cohen: 0,2 effetto piccolo e 0,5 effetto medio. Nessun dato arriva a 0,8, l’effetto grande.</p>
+  </section>
+
+  <section>
+    <h2>Quando e come usarla</h2>
+    <p>Tre domande pratiche, tre risposte.</p>
+    <div class="tabs" role="tablist" aria-label="Domande pratiche">
+      <button role="tab" id="t0" aria-controls="p0" aria-selected="true">Squadra o singolo?</button>
+      <button role="tab" id="t1" aria-controls="p1" aria-selected="false" tabindex="-1">Sforzo o tecnica?</button>
+      <button role="tab" id="t2" aria-controls="p2" aria-selected="false" tabindex="-1">Dentro o fuori?</button>
+    </div>
+
+    <div class="panel" role="tabpanel" id="p0" aria-labelledby="t0">
+      <div class="stat">0,35 contro 0,15</div>
+      <p class="muted">Effetto sulla prestazione: fitness contro sport agonistico.</p>
+      <ul>
+        <li>Corsa, ciclismo, nuoto e fitness hanno gesti ripetitivi: la musica distrae dalla fatica senza ostacoli.</li>
+        <li>Negli sport di squadra serve attenzione al gioco: la musica personale perde peso durante la gara.</li>
+        <li>In squadra funziona la musica condivisa con le casse, nel riscaldamento e nello spogliatoio: più coesione e motivazione.</li>
+      </ul>
+    </div>
+
+    <div class="panel" role="tabpanel" id="p1" aria-labelledby="t1" hidden>
+      <div class="stat">0,39 contro 0,27</div>
+      <p class="muted">Effetto sulla prestazione: intensità bassa o moderata contro alta.</p>
+      <ul>
+        <li>Ad alta intensità la musica non cancella la fatica, ma la rende meno spiacevole: circa il 10% in meno di pensieri negativi.</li>
+        <li>Ritarda il momento in cui l’attenzione si sposta tutta sul dolore.</li>
+        <li>Nelle prove brevi o esplosive conviene ascoltarla prima, per accendere l’attivazione.</li>
+        <li>Per imparare un gesto tecnico: musica strumentale o silenzio, per non sovraccaricare l’attenzione.</li>
+      </ul>
+    </div>
+
+    <div class="panel" role="tabpanel" id="p2" aria-labelledby="t2" hidden>
+      <div class="stat">0,33 contro 0,24</div>
+      <p class="muted">Effetto sulla prestazione: laboratorio contro campo. La differenza non è significativa.</p>
+      <ul>
+        <li>Palestra e tapis roulant sono ambienti monotoni: è lì che la musica serve di più.</li>
+        <li>All’aperto ci sono già molti stimoli, quindi la musica pesa meno.</li>
+        <li>In strada, con le cuffie, la sicurezza viene prima.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Come sceglierla</h2>
+    <p>Tra 120 e 140 BPM, e scelta da te. Sotto i 100 BPM non attiva abbastanza; oltre i 140–150 rischia di sovraccaricare l’attenzione. La musica preferita dà effetti migliori di quella imposta.</p>
+  </section>
+
+  <section class="final">
+    <h2>In sintesi</h2>
+    <p>Non una scorciatoia magica, ma un supporto reale se usata con criterio: trasforma la fatica in un’esperienza più sostenibile e gratificante.</p>
+    <h3 style="margin-top:1.6rem">I limiti</h3>
+    <p>Gli effetti sono piccoli o moderati. Le prove dirette sugli ormoni durante l’esercizio sono poche: oggi la spiegazione psicologica (distrazione, attivazione, umore) è quella meglio supportata.</p>
+  </section>
+
+  <footer>
+    Fonte dei dati: Terry, Karageorghis, Curran, Martin &amp; Parsons-Smith (2020), <i>Psychological Bulletin</i>, 146(2), 91–117.
+    <a href="https://doi.org/10.1037/bul0000216" rel="noopener">doi.org/10.1037/bul0000216</a>
+  </footer>
+</main>
+
+<script>
+(function(){
+  var eq=document.getElementById("eq"),slider=document.getElementById("slider"),
+      bpm=document.getElementById("bpm"),zone=document.getElementById("zone"),root=document.documentElement;
+  for(var i=0;i<32;i++){
+    var b=document.createElement("div");b.className="bar";
+    b.style.setProperty("--o",((i*37)%100/100).toFixed(2));
+    b.style.setProperty("--h",(0.35+((i*53)%65)/100).toFixed(2));
+    eq.appendChild(b);
+  }
+  function update(){
+    var v=+slider.value,msg,col="var(--mute)";
+    if(v<100){msg="Troppo lento: non basta a sostenere l’attivazione.";}
+    else if(v<120){msg="Sotto i 120 BPM: lo stimolo è ancora debole.";}
+    else if(v<=140){msg="Zona ottimale: il tempo che si preferisce durante l’esercizio.";col="var(--acc)";}
+    else if(v<=150){msg="Al limite: l’attenzione comincia a saturarsi.";}
+    else{msg="Troppo veloce: rischio di sovraccarico e di attivazione eccessiva.";col="var(--warm)";}
+    bpm.textContent=v;zone.textContent=msg;
+    root.style.setProperty("--zc",col);
+    root.style.setProperty("--beat",(60/v).toFixed(3)+"s");
+  }
+  slider.addEventListener("input",update);update();
+
+  var tabs=[].slice.call(document.querySelectorAll("[role=tab]"));
+  function show(i){
+    tabs.forEach(function(t,k){
+      var on=k===i;t.setAttribute("aria-selected",on);t.tabIndex=on?0:-1;
+      document.getElementById(t.getAttribute("aria-controls")).hidden=!on;
+    });
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener("click",function(){show(i)});
+    t.addEventListener("keydown",function(e){
+      var n=e.key==="ArrowRight"?i+1:e.key==="ArrowLeft"?i-1:null;
+      if(n===null)return;n=(n+tabs.length)%tabs.length;show(n);tabs[n].focus();
+    });
+  });
+})();
+</script>
+</body>
+</html>
