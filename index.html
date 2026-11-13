@@ -6,210 +6,195 @@
 <title>La musica nell’esercizio fisico: quando e come usarla</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Figtree:wght@400;600&display=swap">
 <style>
-:root{
-  --bg:#f1f4fb;--ink:#0e1a3b;--mute:#566082;--line:#d3d9ea;--acc:#2547ff;--warm:#e8472f;--soft:#e4e9f8;
-  --zc:var(--acc);
-  color-scheme:light;
-  box-sizing:border-box;
-  padding-top:env(safe-area-inset-top,0px);
-  padding-bottom:env(safe-area-inset-bottom,0px);
-}
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){--bg:#0b1230;--ink:#eef1ff;--mute:#9aa4cc;--line:#26325f;--acc:#7d95ff;--warm:#ff8068;--soft:#17214a;color-scheme:dark}
-}
-:root[data-theme="dark"]{--bg:#0b1230;--ink:#eef1ff;--mute:#9aa4cc;--line:#26325f;--acc:#7d95ff;--warm:#ff8068;--soft:#17214a;color-scheme:dark}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
+:root{--bg:#0b1230;--ink:#eef1ff;--mute:#9aa4cc;--line:#26325f;--acc:#7d95ff;--warm:#ff8068;--soft:#17214a;--zc:var(--acc);color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 *{box-sizing:border-box}
+html{background:var(--bg)}
 body{margin:0;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.6 Figtree,system-ui,-apple-system,"Segoe UI",sans-serif}
-main{max-width:44rem;margin:0 auto;padding:2.5rem 1.25rem 4rem}
-h1,h2,h3{font-family:"Bricolage Grotesque",Figtree,system-ui,sans-serif;line-height:1.08;margin:0}
-h1{font-weight:800;font-size:clamp(2.3rem,9vw,3.9rem);letter-spacing:-.02em}
-h2{font-weight:800;font-size:clamp(1.6rem,5.5vw,2.2rem);letter-spacing:-.01em;margin-bottom:.6rem}
-h3{font-weight:600;font-size:1.15rem}
-p{margin:.4rem 0 0;max-width:60ch}
-.sub{font-family:"Bricolage Grotesque",Figtree,sans-serif;font-weight:600;font-size:clamp(1.25rem,4.5vw,1.6rem);color:var(--acc);margin-top:.9rem}
-.credit{color:var(--mute);font-size:.95rem;margin-top:1.2rem}
-.credit span{display:block}
-section{margin-top:3.5rem}
-.muted{color:var(--mute)}
-
-/* hero: tempo */
-.tempo{margin-top:2.2rem;padding-top:1.4rem;border-top:2px solid var(--ink)}
-.eq{display:flex;align-items:flex-end;gap:3px;height:96px;margin:.8rem 0 1rem}
-.bar{flex:1;height:100%;background:var(--zc);border-radius:2px;transform-origin:bottom;transform:scaleY(.2);
-  animation:eq calc(var(--beat,.5s) / 2) ease-in-out infinite alternate;animation-delay:calc(var(--o) * var(--beat,.5s) * -1);
-  transition:background-color .3s}
+main{max-width:44rem;margin:0 auto;padding:1.2rem 1.1rem calc(6.5rem + env(safe-area-inset-bottom,0px))}
+button,summary,input{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+h1,h2,h3,summary{font-family:"Bricolage Grotesque",Figtree,system-ui,sans-serif;line-height:1.1;margin:0}
+h1{font-weight:800;font-size:clamp(1.7rem,7vw,2.6rem);letter-spacing:-.02em}
+h2{font-weight:800;font-size:clamp(1.5rem,5vw,2rem);margin-bottom:.6rem}
+p{margin:.5rem 0 0;max-width:62ch}
+ul{max-width:62ch;padding-left:1.2rem}li{margin:.4rem 0}li::marker{color:var(--acc)}
+.sub{font:600 clamp(1.05rem,4vw,1.3rem) "Bricolage Grotesque",sans-serif;color:var(--acc);margin-top:.5rem}
+.muted,.credit{color:var(--mute)}
+.credit{font-size:.88rem;margin-top:.6rem}.credit span{display:block}
+.score{margin:.9rem 0 1.1rem;padding-top:.6rem;border-top:2px solid var(--ink);font-weight:600}
+.score b{font:800 1.6rem "Bricolage Grotesque",sans-serif;color:var(--acc)}
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;background:var(--soft);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+.tabs button{flex:1;min-height:62px;background:none;border:0;border-top:3px solid transparent;color:var(--mute);font:600 .78rem/1.2 Figtree,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.1rem;cursor:pointer}
+.tabs button b{font:800 1.35rem/1 "Bricolage Grotesque",sans-serif}
+.tabs button[aria-current="page"]{color:var(--ink);border-top-color:var(--acc);background:var(--bg)}
+.tabs button.done b{color:var(--acc)}
+.up{position:fixed;right:1rem;bottom:calc(78px + env(safe-area-inset-bottom,0px));z-index:11;width:52px;height:52px;border-radius:50%;border:2px solid var(--ink);background:var(--acc);color:var(--bg);font:800 1.5rem/1 Figtree,sans-serif;cursor:pointer}
+.up[hidden]{display:none}
+.ch[hidden]{display:none}
+details{border-top:1px solid var(--line)}
+summary{cursor:pointer;font-weight:600;font-size:1.25rem;padding:1.1rem 0;min-height:60px;align-items:center;list-style:none;display:flex;justify-content:space-between;gap:1rem}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--acc);font-size:1.5rem;line-height:1}
+details[open] summary::after{content:"–"}
+details>:last-child{margin-bottom:1.1rem}
+.game{background:var(--soft);border-radius:12px;padding:1.1rem;margin:0 0 1.4rem}
+.q{font-weight:600;margin:.9rem 0 0}.game>.q:first-child{margin-top:0;font-size:1.1rem}
+.fb{font-weight:600;min-height:1.6em;margin-top:.8rem}
+.big{font:800 2.2rem "Bricolage Grotesque",sans-serif;line-height:1.1;color:var(--zc);margin:.6rem 0 0;transition:color .3s}
+.ends{display:flex;justify-content:space-between;color:var(--mute);font-size:.85rem}
+.chips{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:.6rem}.chips .chip{flex:1 1 44%}
+.chip{font:600 1rem Figtree,sans-serif;color:var(--ink);background:var(--bg);border:2px solid var(--ink);border-radius:8px;padding:.7rem .9rem;cursor:pointer;min-height:56px;text-align:center}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.game>.chip{width:100%;margin-top:.7rem}
+input:focus-visible,button:focus-visible,summary:focus-visible,a:focus-visible{outline:3px solid var(--acc);outline-offset:3px}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:18px;border-radius:9px;margin:1rem 0 .3rem;cursor:pointer;background:var(--line)}
+input.tp{background:linear-gradient(to right,var(--line) 0 33.3%,var(--bg) 33.3% 50%,var(--acc) 50% 66.7%,var(--bg) 66.7% 75%,var(--warm) 75% 100%)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:40px;height:40px;border-radius:50%;background:var(--ink);border:4px solid var(--soft)}
+input[type=range]::-moz-range-thumb{width:32px;height:32px;border-radius:50%;background:var(--ink);border:4px solid var(--soft)}
+.m{margin-top:.8rem}.m .t{display:flex;justify-content:space-between;font-size:.9rem;font-weight:600}
+.mt{height:14px;border-radius:3px;background:var(--bg);margin-top:.2rem;overflow:hidden}
+.mt i{display:block;height:100%;background:var(--acc);transition:width .15s}
+.eq{display:flex;align-items:flex-end;gap:3px;height:80px;margin:.8rem 0}
+.bar{flex:1;height:100%;background:var(--zc);border-radius:2px;transform-origin:bottom;transform:scaleY(.2);animation:eq calc(var(--beat,.5s) / 2) ease-in-out infinite alternate;animation-delay:calc(var(--o) * var(--beat,.5s) * -1);transition:background-color .3s}
 @keyframes eq{to{transform:scaleY(var(--h))}}
-.readout{display:flex;align-items:baseline;gap:.5rem;flex-wrap:wrap}
-.bpm{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:3.4rem;line-height:1;color:var(--zc);transition:color .3s;font-variant-numeric:tabular-nums}
-.zone{font-weight:600;min-height:3.3em;margin-top:.5rem}
-input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:14px;border-radius:7px;margin:.8rem 0 .2rem;cursor:pointer;
-  background:linear-gradient(to right,var(--line) 0 33.3%,var(--soft) 33.3% 50%,var(--acc) 50% 66.7%,var(--soft) 66.7% 75%,var(--warm) 75% 100%)}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:30px;height:30px;border-radius:50%;background:var(--ink);border:4px solid var(--bg)}
-input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--ink);border:4px solid var(--bg)}
-input:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--acc);outline-offset:3px}
-.scale{display:flex;justify-content:space-between;color:var(--mute);font-size:.85rem}
-
-/* grafico */
-.rows{margin-top:1.4rem;display:grid;gap:1.1rem}
-.row .top{display:flex;justify-content:space-between;gap:1rem;font-weight:600}
-.row .top span:last-child{font-variant-numeric:tabular-nums}
-.track{height:20px;margin-top:.3rem;border-radius:3px;background:
-  linear-gradient(to right,transparent calc(25% - 1px),var(--line) 0 calc(25% + 1px),transparent 0 calc(62.5% - 1px),var(--line) 0 calc(62.5% + 1px),transparent 0),var(--soft)}
-.fill{height:100%;border-radius:3px;background:var(--acc);width:var(--w)}
+.row{margin-top:.8rem}.row .t{display:flex;justify-content:space-between;font-weight:600}
+.track{height:18px;margin-top:.25rem;border-radius:3px;background:linear-gradient(to right,transparent calc(25% - 1px),var(--mute) 0 calc(25% + 1px),transparent 0 calc(62.5% - 1px),var(--mute) 0 calc(62.5% + 1px),transparent 0),var(--soft)}
+.fill{display:block;height:100%;border-radius:3px;background:var(--acc)}
 .fill.ns{background:repeating-linear-gradient(45deg,var(--mute) 0 3px,transparent 3px 7px)}
-.row small{color:var(--mute)}
-.key{margin-top:1rem;color:var(--mute);font-size:.9rem}
-
-/* schede */
-.tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.2rem}
-.tabs button{font:600 1rem Figtree,sans-serif;color:var(--ink);background:transparent;border:2px solid var(--ink);border-radius:999px;padding:.55rem 1.05rem;cursor:pointer;min-height:44px}
-.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg)}
-.panel{margin-top:1.4rem}
-.panel[hidden]{display:none}
-.panel .stat{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:2.4rem;line-height:1.05;color:var(--acc)}
-.panel ul{margin:1rem 0 0;padding-left:1.2rem;max-width:60ch}
-.panel li{margin:.55rem 0}
-.panel li::marker{color:var(--acc)}
-
-.final{border-top:2px solid var(--ink);padding-top:1.4rem}
-.final h2{margin-bottom:.8rem}
-footer{margin-top:3rem;color:var(--mute);font-size:.9rem}
-footer a{color:var(--acc)}
-@media (prefers-reduced-motion:reduce){.bar{animation:none;transform:scaleY(var(--h))}}
+.row small{color:var(--mute);font-size:.9rem}
+.end{margin-top:1.5rem}
+footer{margin-top:2.5rem;color:var(--mute);font-size:.9rem}footer a{color:var(--acc)}
+@media (prefers-reduced-motion:reduce){.bar{animation:none;transform:scaleY(var(--h))}.mt i{transition:none}}
 </style>
 </head>
 <body>
 <main>
-  <header>
-    <h1>I benefici della musica durante l’esercizio fisico</h1>
-    <p class="sub">Quando e come utilizzarla</p>
-    <p class="credit">
-      <span>Tesi di Joseph Lalla, A.A. 2025/2026</span>
-      <span>Relatore: Prof. Alessandro Arcovito</span>
-      <span>Università Cattolica del Sacro Cuore, Milano</span>
-    </p>
-
-    <div class="tempo">
-      <h2>Prova il tempo</h2>
-      <p class="muted">Muovi il cursore: a che velocità la musica sostiene davvero l’allenamento?</p>
-      <div class="eq" id="eq" aria-hidden="true"></div>
-      <div class="readout"><span class="bpm" id="bpm">128</span><span class="muted">BPM</span></div>
-      <input type="range" id="slider" min="60" max="180" value="128" aria-label="Tempo in battiti al minuto" aria-describedby="zone">
-      <div class="scale" aria-hidden="true"><span>60</span><span>120</span><span>180</span></div>
-      <p class="zone" id="zone" aria-live="polite"></p>
-    </div>
-  </header>
-
-  <section>
-    <h2>Quanto aiuta, davvero?</h2>
-    <p>La meta-analisi principale (Terry et al., 2020) mette insieme 139 studi e 3.599 partecipanti. La musica incide più sulla mente che sul corpo.</p>
-    <div class="rows">
-      <div class="row"><div class="top"><span>Umore positivo</span><span>g = 0,48</span></div><div class="track"><div class="fill" style="--w:60%"></div></div><small>effetto medio</small></div>
-      <div class="row"><div class="top"><span>Prestazione fisica</span><span>g = 0,31</span></div><div class="track"><div class="fill" style="--w:38.75%"></div></div><small>effetto piccolo</small></div>
-      <div class="row"><div class="top"><span>Sforzo percepito</span><span>g = 0,22</span></div><div class="track"><div class="fill" style="--w:27.5%"></div></div><small>effetto piccolo: la fatica si sente meno</small></div>
-      <div class="row"><div class="top"><span>Consumo di ossigeno</span><span>g = 0,15</span></div><div class="track"><div class="fill" style="--w:18.75%"></div></div><small>effetto molto piccolo</small></div>
-      <div class="row"><div class="top"><span>Frequenza cardiaca</span><span>g = 0,07</span></div><div class="track"><div class="fill ns" style="--w:8.75%"></div></div><small>non significativo</small></div>
-    </div>
-    <p class="key">Le linee verticali segnano le soglie di Cohen: 0,2 effetto piccolo e 0,5 effetto medio. Nessun dato arriva a 0,8, l’effetto grande.</p>
-  </section>
-
-  <section>
-    <h2>Quando e come usarla</h2>
-    <p>Tre domande pratiche, tre risposte.</p>
-    <div class="tabs" role="tablist" aria-label="Domande pratiche">
-      <button role="tab" id="t0" aria-controls="p0" aria-selected="true">Squadra o singolo?</button>
-      <button role="tab" id="t1" aria-controls="p1" aria-selected="false" tabindex="-1">Sforzo o tecnica?</button>
-      <button role="tab" id="t2" aria-controls="p2" aria-selected="false" tabindex="-1">Dentro o fuori?</button>
-    </div>
-
-    <div class="panel" role="tabpanel" id="p0" aria-labelledby="t0">
-      <div class="stat">0,35 contro 0,15</div>
-      <p class="muted">Effetto sulla prestazione: fitness contro sport agonistico.</p>
-      <ul>
-        <li>Corsa, ciclismo, nuoto e fitness hanno gesti ripetitivi: la musica distrae dalla fatica senza ostacoli.</li>
-        <li>Negli sport di squadra serve attenzione al gioco: la musica personale perde peso durante la gara.</li>
-        <li>In squadra funziona la musica condivisa con le casse, nel riscaldamento e nello spogliatoio: più coesione e motivazione.</li>
-      </ul>
-    </div>
-
-    <div class="panel" role="tabpanel" id="p1" aria-labelledby="t1" hidden>
-      <div class="stat">0,39 contro 0,27</div>
-      <p class="muted">Effetto sulla prestazione: intensità bassa o moderata contro alta.</p>
-      <ul>
-        <li>Ad alta intensità la musica non cancella la fatica, ma la rende meno spiacevole: circa il 10% in meno di pensieri negativi.</li>
-        <li>Ritarda il momento in cui l’attenzione si sposta tutta sul dolore.</li>
-        <li>Nelle prove brevi o esplosive conviene ascoltarla prima, per accendere l’attivazione.</li>
-        <li>Per imparare un gesto tecnico: musica strumentale o silenzio, per non sovraccaricare l’attenzione.</li>
-      </ul>
-    </div>
-
-    <div class="panel" role="tabpanel" id="p2" aria-labelledby="t2" hidden>
-      <div class="stat">0,33 contro 0,24</div>
-      <p class="muted">Effetto sulla prestazione: laboratorio contro campo. La differenza non è significativa.</p>
-      <ul>
-        <li>Palestra e tapis roulant sono ambienti monotoni: è lì che la musica serve di più.</li>
-        <li>All’aperto ci sono già molti stimoli, quindi la musica pesa meno.</li>
-        <li>In strada, con le cuffie, la sicurezza viene prima.</li>
-      </ul>
-    </div>
-  </section>
-
-  <section>
-    <h2>Come sceglierla</h2>
-    <p>Tra 120 e 140 BPM, e scelta da te. Sotto i 100 BPM non attiva abbastanza; oltre i 140–150 rischia di sovraccaricare l’attenzione. La musica preferita dà effetti migliori di quella imposta.</p>
-  </section>
-
-  <section class="final">
-    <h2>In sintesi</h2>
-    <p>Non una scorciatoia magica, ma un supporto reale se usata con criterio: trasforma la fatica in un’esperienza più sostenibile e gratificante.</p>
-    <h3 style="margin-top:1.6rem">I limiti</h3>
-    <p>Gli effetti sono piccoli o moderati. Le prove dirette sugli ormoni durante l’esercizio sono poche: oggi la spiegazione psicologica (distrazione, attivazione, umore) è quella meglio supportata.</p>
-  </section>
-
-  <footer>
-    Fonte dei dati: Terry, Karageorghis, Curran, Martin &amp; Parsons-Smith (2020), <i>Psychological Bulletin</i>, 146(2), 91–117.
-    <a href="https://doi.org/10.1037/bul0000216" rel="noopener">doi.org/10.1037/bul0000216</a>
-  </footer>
+<header>
+  <h1>I benefici della musica durante l’esercizio fisico</h1>
+  <p class="sub">Quando e come utilizzarla</p>
+  <p class="credit"><span>Tesi di Joseph Lalla, A.A. 2025/2026</span><span>Relatore: Prof. Alessandro Arcovito</span><span>Università Cattolica del Sacro Cuore, Milano</span></p>
+  <p class="score">Giochi completati: <b id="cnt">0 su 4</b></p>
+</header>
+<div id="chs"></div>
+<footer>Tutti i numeri e le affermazioni vengono dalla tesi. Le barre dei giochi mostrano solo l’andamento qualitativo descritto nel testo, non valori misurati. Fonte principale: Terry, Karageorghis, Curran, Martin &amp; Parsons-Smith (2020), <i>Psychological Bulletin</i>, 146(2), 91–117. <a href="https://doi.org/10.1037/bul0000216" target="_blank" rel="noopener">doi.org/10.1037/bul0000216</a></footer>
 </main>
+<nav class="tabs" id="nav" aria-label="Sezioni"></nav>
+<button class="up" id="up" hidden aria-label="Torna su">↑</button>
 
 <script>
 (function(){
-  var eq=document.getElementById("eq"),slider=document.getElementById("slider"),
-      bpm=document.getElementById("bpm"),zone=document.getElementById("zone"),root=document.documentElement;
-  for(var i=0;i<32;i++){
-    var b=document.createElement("div");b.className="bar";
-    b.style.setProperty("--o",((i*37)%100/100).toFixed(2));
-    b.style.setProperty("--h",(0.35+((i*53)%65)/100).toFixed(2));
-    eq.appendChild(b);
-  }
-  function update(){
-    var v=+slider.value,msg,col="var(--mute)";
-    if(v<100){msg="Troppo lento: non basta a sostenere l’attivazione.";}
-    else if(v<120){msg="Sotto i 120 BPM: lo stimolo è ancora debole.";}
-    else if(v<=140){msg="Zona ottimale: il tempo che si preferisce durante l’esercizio.";col="var(--acc)";}
-    else if(v<=150){msg="Al limite: l’attenzione comincia a saturarsi.";}
-    else{msg="Troppo veloce: rischio di sovraccarico e di attivazione eccessiva.";col="var(--warm)";}
-    bpm.textContent=v;zone.textContent=msg;
-    root.style.setProperty("--zc",col);
-    root.style.setProperty("--beat",(60/v).toFixed(3)+"s");
-  }
-  slider.addEventListener("input",update);update();
+var D=[
+{n:"Introduzione",p:[
+ {o:1,h:"Lo scopo",t:["Capire quando la musica è utile durante l’esercizio fisico e come conviene utilizzarla, distinguendo ciò che le ricerche confermano con solidità da ciò che resta incerto (revisione narrativa della letteratura).","Gli effetti documentati sono, nel complesso, di entità piccola o moderata: non una scorciatoia magica, ma un supporto reale che va usato con criterio."]},
+ {o:1,h:"Le tre domande",l:["Musica personale o condivisa, negli sport individuali e di squadra?","Sforzo massimale e gesto tecnico: spingere o concentrarsi? E quando ha senso ascoltarla solo prima della prova?","Allenarsi in palestra o all’aperto: cambia qualcosa?"]}]},
+{n:"Capitolo 1",g:{t:"s",q:"Come reagisce l’organismo allo sforzo? Aumenta l’intensità.",min:20,max:100,v:30,u:"% del VO₂max",
+  m:[{n:"Catecolamine (andamento illustrativo)",a:5,b:100,e:4},{n:"Cortisolo (andamento illustrativo)",a:5,b:100,e:2},{n:"Beta-endorfine (andamento illustrativo)",a:5,b:100}],
+  r:[[60,"Carichi inferiori: incrementi moderati di catecolamine; il cortisolo varia in modo modesto se lo sforzo è leggero o breve; le beta-endorfine crescono già in proporzione all’intensità."],[70,"Siamo alla soglia del 60–70% del VO₂max: da qui le catecolamine cambiano passo."],[101,"Oltre il 60–70% del VO₂max le catecolamine aumentano in modo esponenziale; gli sforzi intensi o prolungati danno incrementi più marcati di cortisolo; le beta-endorfine continuano a salire con intensità e durata."]]},
+ p:[
+ {h:"1.1 Asse HPA e cortisolo",t:["L’asse ipotalamo-ipofisi-surrene risponde agli stimoli stressogeni, fisici o psicologici: l’ipotalamo secerne il CRH, l’ipofisi rilascia l’ACTH e la corticale del surrene produce il cortisolo. Un feedback negativo riporta il sistema verso l’omeostasi.","Una seduta provoca un aumento transitorio del cortisolo, che dipende da intensità, durata e tipo di esercizio. La secrezione segue un ritmo circadiano: massimi al mattino, minimo nelle ore serali e notturne."]},
+ {h:"1.2 Catecolamine",t:["Adrenalina e noradrenalina sono la risposta rapida del sistema simpatico: i livelli in circolo aumentano in pochissimi secondi. Incrementi moderati per carichi inferiori, poi aumento esponenziale oltre il 60–70% del VO₂max.","Un esercizio intenso interrotto bruscamente dà spesso un ulteriore picco temporaneo: per questo serve il defaticamento. Nei soggetti abituati all’endurance la noradrenalina a parità di carico tende a ridursi."]},
+ {h:"1.3 Beta-endorfine e runner’s high",t:["Peptidi oppioidi endogeni con funzione analgesica naturale, secreti dall’ipofisi insieme all’ACTH a partire dallo stesso precursore (POMC). Aumentano in proporzione a intensità e durata, soprattutto negli esercizi di resistenza prolungati.","Attenuano la percezione di fatica e dolore e sono le principali responsabili del runner’s high: euforia, buon umore e benessere durante o dopo l’allenamento."]}]},
+{n:"Capitolo 2",g:{t:"b"},p:[
+ {h:"2.1 Arousal, umore, emozione",t:["Juslin (2013): l’emozione è una reazione breve ma intensa verso un oggetto specifico (da minuti ad alcune ore); l’umore è più duraturo e senza un oggetto chiaro (da alcune ore a giorni); l’arousal è l’attivazione fisica del sistema nervoso autonomo e può esserci anche senza emozione.","Il modello BRECVEMA individua otto meccanismi con cui la musica genera emozioni: riflessi del tronco encefalico, condizionamento valutativo, contagio emotivo, immaginazione visiva, memoria episodica, attesa musicale, entrainment ritmico, giudizio estetico."]},
+ {h:"2.2 Tempo, genere, motivazionale o rilassante",t:["Il tempo (BPM) è la variabile più indagata. Kämpfe et al. (2011): a un tempo più rapido corrisponde un’esecuzione motoria più rapida (r = 0,40). La soglia di riferimento è 120 BPM; i tempi preferiti cadono tra 123 e 140 BPM; sotto i 100 BPM l’attivazione non è sostenuta, oltre 140–150 si rischia di saturare l’attenzione.","Contano la preferenza e la scelta personale: nella meta-analisi di Delleli et al. (2023) la musica scelta dal partecipante ha dato effetti maggiori. La musica motivazionale ha tempi rapidi, ritmo marcato ed energia elevata e alza l’arousal; quella rilassante ha tempi lenti e punta al recupero."]},
+ {h:"2.3 Circuiti cerebrali e sistemi di regolazione",t:["Salimpoor et al. (2011, 2013): la musica molto gradita induce rilascio di dopamina nel corpo striato, con un incremento anticipatorio nel nucleo caudato e un picco nel nucleo accumbens all’apice emotivo (i brividi).","Fancourt et al. (2014): la musica rilassante sopprime il cortisolo in oltre il 60% degli studi analizzati; ma questi studi erano a riposo o dopo stress psicologico e non si trasferiscono automaticamente all’esercizio. Sul sistema autonomo (Ooishi et al., 2017) il tempo lento favorisce il tono vagale; il tempo veloce sposta verso il simpatico (aumenta il rapporto LF/HF)."]}]},
+{n:"Capitolo 3",g:{t:"s",q:"Spingere o concentrarsi? Aumenta l’intensità dello sforzo.",min:0,max:100,v:20,l:["Bassa","Vicino al VO₂max"],
+  m:[{n:"Peso dei segnali di fatica (andamento illustrativo)",a:10,b:95}],
+  r:[[55,"Intensità bassa o moderata: la musica ha il massimo effetto sulla prestazione (g = 0,39) perché distoglie l’attenzione dai segnali periferici di affaticamento."],[85,"Intensità elevata e sub-massimale: l’effetto sulla prestazione scende (g = 0,27), perché oltre la soglia anaerobica i segnali di sofferenza metabolica intercettano l’attenzione."],[101,"Vicino al VO₂max prevalgono acidosi, iperventilazione e dolore muscolare. La musica a 120–140+ BPM non cancella la fatica, ma riduce di circa il 10% i pensieri associativi sgradevoli e ritarda il passaggio dell’attenzione verso il corpo."]]},
+ p:[
+ {h:"Guida ai dati: la dimensione dell’effetto",c:1,t:["g confronta chi ascolta musica con chi non la ascolta, in deviazioni standard: positivo vuol dire che la musica migliora l’esito (per lo sforzo percepito, che la fatica diminuisce). Soglie di Cohen (1988): circa 0,2 piccolo, 0,5 medio, 0,8 grande, segnate dalle linee. Terry et al. (2020): 139 studi, 3.599 partecipanti."]},
+ {h:"3.1 Squadra o singolo?",t:["Sport individuali e ciclici: la base di evidenza più consistente. Effetto sulla prestazione maggiore nel fitness (g = 0,35) che nello sport agonistico (g = 0,15), che richiede decision-making e attenzione ai feedback tattici.","Squadra: modello SAME e sincronia ritmica di gruppo aumentano coesione e soglia del dolore (Tarr et al.); sulla prestazione pura il quadro è eterogeneo (Bezuglov et al., 2025). Con le cuffie: musica personale (Jebabli et al., 2022: più distanza e meno lattato nel test di 6 minuti). Con i diffusori: riscaldamento di squadra, circuito, defaticamento e spogliatoio."]},
+ {h:"3.2 Sforzo massimale e gesto tecnico",t:["In prove brevi, esplosive o massimali la musica durante la prova può essere impraticabile: vale la musica pre-esercizio (Delleli et al., 2023, 30 studi: più arousal e più potenza nelle prime fasi, con effetti maggiori se il brano è scelto dal partecipante). Sul piano ormonale i dati sono scarsi.","Gesto tecnico: Kämpfe et al. (2011) trovano un effetto piccolo positivo nello sport (r = 0,15) e negativo su memoria e comprensione. Indicazione prudenziale, non dimostrata: per imparare gesti complessi meglio musica strumentale o assenza di musica. Linea emergente: ritmo più immaginazione motoria come impalcatura temporale (Castellar et al., 2025, 2026)."]},
+ {h:"3.3 Indoor e outdoor",t:["Laboratorio g = 0,33, campo g = 0,24: differenza non significativa, quindi la musica conserva la sua efficacia di fondo.","Senza musica, la corsa su tapis roulant è risultata meno soddisfacente (LaCaille et al., 2004), e con musica in-ear a 85 dB i parametri biomeccanici sono cambiati solo sul tapis roulant (Martinez et al., 2025). All’aperto, come ipotesi, gli stimoli ambientali riducono l’influenza relativa della musica; con le cuffie serve attenzione alla sicurezza."]}]},
+{n:"Conclusione",g:{t:"w"},p:[
+ {o:1,h:"In sintesi",t:["La musica nell’attività sportiva non è un semplice sottofondo, ma un sussidio psicologico ed ergogenico non farmacologico: trasforma la percezione dello stress fisico in un’esperienza sostenibile e gratificante, se usata con criterio."]},
+ {o:1,h:"I limiti",t:["L’entità degli effetti è contenuta; i protocolli sono molto eterogenei; molte ricerche sono in laboratorio, su soggetti sani e giovani, con misure soggettive. Le evidenze dirette sulla risposta neuroendocrina durante l’esercizio restano scarse e spesso indirette: la spiegazione psicologica è oggi la meglio supportata."]}]}
+];
 
-  var tabs=[].slice.call(document.querySelectorAll("[role=tab]"));
-  function show(i){
-    tabs.forEach(function(t,k){
-      var on=k===i;t.setAttribute("aria-selected",on);t.tabIndex=on?0:-1;
-      document.getElementById(t.getAttribute("aria-controls")).hidden=!on;
-    });
-  }
-  tabs.forEach(function(t,i){
-    t.addEventListener("click",function(){show(i)});
-    t.addEventListener("keydown",function(e){
-      var n=e.key==="ArrowRight"?i+1:e.key==="ArrowLeft"?i-1:null;
-      if(n===null)return;n=(n+tabs.length)%tabs.length;show(n);tabs[n].focus();
-    });
-  });
+var done={},btns=[],cnt=document.getElementById("cnt");
+function mark(id){if(!done[id]){done[id]=1;cnt.textContent=Object.keys(done).length+" su 4";var t=btns[+id.slice(1)+1];if(t){t.classList.add("done");t.firstChild.textContent="✓"}}}
+function h(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x)e.textContent=x;return e}
+function box(q){var d=h("div","game");d.appendChild(h("p","q",q));return d}
+function fb(){var f=h("p","fb");f.setAttribute("aria-live","polite");return f}
+function fmt(x){return String(x).replace(".",",")}
+
+function sl(g,id){
+  var d=box(g.q),i=h("input"),f=fb(),v=h("p","big"),ms=[];
+  i.type="range";i.min=g.min;i.max=g.max;i.value=g.v;i.setAttribute("aria-label",g.q);
+  if(g.u)d.appendChild(v);d.appendChild(i);
+  if(g.l){var e=h("div","ends");e.appendChild(h("span","",g.l[0]));e.appendChild(h("span","",g.l[1]));d.appendChild(e)}
+  g.m.forEach(function(m){var w=h("div","m"),tr=h("div","mt"),fl=h("i");
+    tr.appendChild(fl);w.appendChild(h("div","t",m.n));w.appendChild(tr);d.appendChild(w);ms.push({f:fl,a:m.a,b:m.b,e:m.e||1})});
+  d.appendChild(f);
+  function up(){var x=+i.value,t=(x-g.min)/(g.max-g.min);
+    if(g.u)v.textContent=x+" "+g.u;
+    ms.forEach(function(o){o.f.style.width=(o.a+(o.b-o.a)*Math.pow(t,o.e))+"%"});
+    for(var k=0;k<g.r.length;k++)if(x<g.r[k][0]){f.textContent=g.r[k][1];break}}
+  i.oninput=function(){up();mark(id)};up();return d}
+
+function bpm(id){
+  var d=box("Muovi il cursore o batti il tempo con il tasto: dove cade il tuo ritmo?"),eq=h("div","eq"),n=h("p","big"),
+      s=h("input","tp"),z=fb(),t=h("button","chip","Batti il tempo"),ts=[];
+  eq.setAttribute("aria-hidden","true");s.type="range";s.min=60;s.max=180;s.value=128;s.setAttribute("aria-label","Tempo in BPM");
+  for(var i=0;i<30;i++){var b=h("div","bar");b.style.setProperty("--o",((i*37)%100/100).toFixed(2));b.style.setProperty("--h",(.35+((i*53)%65)/100).toFixed(2));eq.appendChild(b)}
+  [eq,n,s,t,z].forEach(function(e){d.appendChild(e)});
+  function up(){var v=+s.value,m,c="var(--mute)";
+    if(v<100){m="Sotto i 100 BPM: tempi inadeguati a sostenere l’attivazione energetica.";c="var(--warm)"}
+    else if(v<120)m="Sotto i 120 BPM, la soglia oltre la quale il potenziale stimolante è più marcato.";
+    else if(v<=140){m="Oltre i 120 BPM il potenziale stimolante è più marcato; i tempi preferiti cadono tra 123 e 140 BPM.";c="var(--acc)"}
+    else{m="Oltre 140–150 BPM si rischiano il sovraccarico dell’attenzione e un arousal disfunzionale.";c="var(--warm)"}
+    n.textContent=v+" BPM";z.textContent=m;d.style.setProperty("--zc",c);d.style.setProperty("--beat",(60/v).toFixed(3)+"s")}
+  s.oninput=function(){up();mark(id)};
+  t.onclick=function(){var now=Date.now();if(ts.length&&now-ts[ts.length-1]>2000)ts=[];ts.push(now);ts=ts.slice(-6);
+    if(ts.length>1){var v=Math.round(60000/((ts[ts.length-1]-ts[0])/(ts.length-1)));s.value=Math.max(60,Math.min(180,v));up();mark(id)}};
+  up();return d}
+
+function build(id){
+  var A=[["Corsa, ciclismo, fitness","Attività individuale, ciclica e a ciclo chiuso: la musica è un catalizzatore di prestazione e motivazione, riempie il vuoto sensoriale e distoglie dai segnali periferici di fatica. Meglio un tempo di 120–140 BPM e un brano scelto da te."],
+         ["Sport di squadra","Durante il gesto agonistico la musica personale perde centralità per il carico cognitivo, tattico e decisionale. Vale la musica condivisa con i diffusori, nel riscaldamento di gruppo: dà coesione e carica motivazionale condivisa."],
+         ["Prova breve o esplosiva","L’ascolto durante la prova è impraticabile: conviene la musica stimolante prima della prestazione (priming), che agisce sull’arousal simpatico e aumenta la prontezza."],
+         ["Gesto tecnico","Meglio musica puramente strumentale, o silenzio: i testi cantati rischiano di sovraccaricare la memoria di lavoro. In alternativa, ritmo più immaginazione motoria come impalcatura temporale."]],
+      E=[["Indoor","Nelle strutture indoor la staticità favorisce la monotonia percettiva: la musica sostiene il ritmo e riduce la percezione del tempo."],
+         ["Outdoor","All’aperto il flusso costante di stimoli visivi e ambientali riduce la necessità di una distrazione esterna; con le cuffie personali serve attenzione alla sicurezza acustica."]],
+      a=-1,e=-1,d=box("Costruisci la tua sessione: scegli attività e ambiente."),out=fb();
+  function grp(lbl,L,set){var w=h("div","chips"),bs=[];d.appendChild(h("p","q",lbl));
+    L.forEach(function(x,k){var b=h("button","chip",x[0]);b.setAttribute("aria-pressed","false");
+      b.onclick=function(){set(k);bs.forEach(function(y){y.setAttribute("aria-pressed",y===b)});
+        out.innerHTML="";[a>=0&&A[a][1],e>=0&&E[e][1]].forEach(function(s){if(s)out.appendChild(h("span","",s)),out.appendChild(h("br"))});
+        if(a>=0&&e>=0)mark(id)};bs.push(b);w.appendChild(b)});d.appendChild(w)}
+  grp("Attività",A,function(k){a=k});grp("Ambiente",E,function(k){e=k});d.appendChild(out);return d}
+
+function rows(){
+  var R=[["Valenza affettiva (umore)",.48,"medio"],["Prestazione fisica",.31,"piccolo · IC 95% [0,25; 0,36]: significativo, stima precisa"],["Sforzo percepito",.22,"piccolo"],["Consumo di ossigeno",.15,"molto piccolo · IC 95% [0,02; 0,27]: significativo ma intervallo largo"],["Frequenza cardiaca",.07,"IC 95% [−0,03; 0,16]: include lo zero, effetto non dimostrato",1]],w=h("div");
+  R.forEach(function(r){var e=h("div","row");
+    e.innerHTML='<div class="t"><span>'+r[0]+'</span><span>g = '+fmt(r[1])+'</span></div><div class="track"><span class="fill'+(r[3]?" ns":"")+'" style="width:'+(r[1]/.8*100)+'%"></span></div><small>'+r[2]+'</small>';w.appendChild(e)});
+  return w}
+
+var nav=document.getElementById("nav"),chs=document.getElementById("chs"),secs=[],gi=0,cur=0,up=document.getElementById("up"),
+    sm=window.matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth",G=["⌂","1","2","3","★"],L=["Inizio","Cap. 1","Cap. 2","Cap. 3","Fine"];
+function go(i){
+  if(i===cur){window.scrollTo({top:0,behavior:sm});return}
+  cur=i;secs.forEach(function(e,k){e.hidden=k!==i;if(k===i)btns[k].setAttribute("aria-current","page");else btns[k].removeAttribute("aria-current")});
+  window.scrollTo(0,0)}
+D.forEach(function(c,ci){
+  var s=h("div","ch"),ac=[];s.hidden=ci>0;
+  if(c.g){var id="g"+(gi++);s.appendChild(c.g.t==="s"?sl(c.g,id):c.g.t==="b"?bpm(id):build(id))}
+  c.p.forEach(function(p){
+    var de=h("details"),su=h("summary","",p.h);if(p.o)de.open=true;else{ac.push(de);de.addEventListener("toggle",function(){if(de.open)ac.forEach(function(o){if(o!==de)o.open=false})})}de.appendChild(su);
+    (p.t||[]).forEach(function(x){de.appendChild(h("p","",x))});
+    if(p.l){var u=h("ul");p.l.forEach(function(x){u.appendChild(h("li","",x))});de.appendChild(u)}
+    if(p.c)de.appendChild(rows());
+    s.appendChild(de)});
+  chs.appendChild(s);secs.push(s);
+  var b=h("button"),g=h("b","",G[ci]);b.appendChild(g);b.appendChild(h("span","",L[ci]));if(ci===0)b.setAttribute("aria-current","page");
+  b.onclick=function(){go(ci)};nav.appendChild(b);btns.push(b)});
+up.onclick=function(){window.scrollTo({top:0,behavior:sm})};
+window.addEventListener("scroll",function(){up.hidden=window.scrollY<350},{passive:true});
+var tx,ty;
+document.addEventListener("touchstart",function(e){tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});
+document.addEventListener("touchend",function(e){
+  if(e.target.closest&&e.target.closest("input,.game,.tabs"))return;
+  var dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;
+  if(Math.abs(dx)>80&&Math.abs(dy)<45){var n=cur+(dx<0?1:-1);if(n>=0&&n<secs.length)go(n)}},{passive:true});
 })();
 </script>
 </body>
